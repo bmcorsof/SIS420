@@ -1,20 +1,24 @@
 import csv
 import random
 
-
 random.seed(42)
 
+n = 100
 
-n = 100  
-
-
-estaturas = [round(random.uniform(1.5, 2.0), 2) for _ in range(n)]
-
+def generar_estatura():
+    return round(random.uniform(1.30, 2.11), 2)
 
 def generar_peso(estatura):
-    ruido = random.uniform(-5, 5)
-    return round(100 * (estatura - 1.5) + ruido, 2)
+    if estatura < 1.50:
+        return round(random.uniform(40, 60), 2)
+    elif estatura < 1.80:
+        return round(random.uniform(50, 80), 2)
+    elif estatura < 2.00:
+        return round(random.uniform(60, 100), 2)
+    else:
+        return round(random.uniform(90, 130), 2)
 
+estaturas = [generar_estatura() for _ in range(n)]
 pesos = [generar_peso(estatura) for estatura in estaturas]
 
 with open('datos_generados.csv', 'w', newline='') as archivo:
